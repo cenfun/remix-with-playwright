@@ -1,10 +1,16 @@
 {
+    "name": "remix-with-playwright",
     "private": true,
     "type": "module",
     "scripts": {
         "build": "remix vite:build",
         "dev": "remix vite:dev",
-        "start": "remix-serve ./build/server/index.js"
+        "start": "remix-serve ./build/server/index.js",
+        "test:clean": "rimraf .v8-coverage",
+        "test:build": "remix vite:build --minify=false --sourcemapClient=true --sourcemapServer=true",
+        "test:start": "cross-env NODE_V8_COVERAGE=.v8-coverage NODE_OPTIONS=--inspect=9229 remix-serve ./build/server/index.js",
+        "test:command": "npm run test:clean && npm run test:build && npm run test:start",
+        "test": "playwright test"
     },
     "license": "MIT",
     "dependencies": {
@@ -16,14 +22,18 @@
         "react-dom": "^18.3.1"
     },
     "devDependencies": {
+        "@playwright/test": "^1.47.1",
         "@remix-run/dev": "^2.12.0",
         "@types/react": "^18.3.5",
         "@types/react-dom": "^18.3.0",
         "autoprefixer": "^10.4.20",
+        "cross-env": "^7.0.3",
         "eslint": "^9.10.0",
         "eslint-config-plus": "^2.0.2",
         "eslint-plugin-react": "^7.36.1",
-        "postcss": "^8.4.45",
+        "monocart-reporter": "^2.8.0",
+        "postcss": "^8.4.47",
+        "rimraf": "^6.0.1",
         "tailwindcss": "^3.4.11",
         "typescript": "^5.6.2",
         "typescript-eslint": "^8.5.0",
@@ -32,6 +42,5 @@
     },
     "engines": {
         "node": ">=20.0.0"
-    },
-    "sideEffects": false
+    }
 }

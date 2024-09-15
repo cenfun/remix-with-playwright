@@ -5,3 +5,6 @@ node_modules
 .env
 
 /package-lock.json
+/monocart-report
+/.v8-coverage
+/test-results
